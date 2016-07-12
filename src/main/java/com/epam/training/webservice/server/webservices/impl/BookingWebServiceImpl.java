@@ -1,9 +1,10 @@
 package com.epam.training.webservice.server.webservices.impl;
 
+import com.epam.training.webservice.common.domains.Person;
 import com.epam.training.webservice.common.domains.Ticket;
+import com.epam.training.webservice.common.exceptions.BookingException;
 import com.epam.training.webservice.server.dao.impl.MemoryTicketDaoImpl;
 import com.epam.training.webservice.server.services.BookingService;
-import com.epam.training.webservice.common.services.JsonService;
 import com.epam.training.webservice.common.webservices.BookingWebService;
 import com.epam.training.webservice.server.services.TicketService;
 
@@ -20,52 +21,34 @@ public class BookingWebServiceImpl implements BookingWebService {
             new TicketService(new MemoryTicketDaoImpl()), new HashMap<>());
 
     @Override
-    public int bookedTicket(String ticket, String person) {
-        return bookingService.bookedTicket(
-                JsonService.parseTicket(ticket),
-                JsonService.parsePerson(person));
+    public int bookTicket(int idTicket, Person person) {
+        return bookingService.bookTicket(idTicket, person);
     }
 
     @Override
-    public String getByNumber(int numberTicket) {
-        return JsonService.stringifyTicket(
-                bookingService.getByNumber(numberTicket));
+    public Ticket getByNumber(int numberTicket) {
+        return bookingService.getByNumber(numberTicket);
     }
 
     @Override
-    public boolean buyTicket(String ticket) {
-        return bookingService.buyTicket(JsonService.parseTicket(ticket));
+    public void buyTicket(int numberTicket) throws BookingException {
+        bookingService.buyTicket(numberTicket);
     }
 
     @Override
-    public boolean returnTicket(String ticket) {
-        return bookingService.returnTicket(JsonService.parseTicket(ticket));
+    public void returnTicket(int numberTicket) throws BookingException {
+        bookingService.returnTicket(numberTicket);
     }
 
     @Override
-    public String[] getAllFree() {
-        List<Ticket> ticketsList = bookingService.getAllFree();
-        String[] tickets = new String[ticketsList.size()];
-
-        for (int i = 0; i < ticketsList.size(); i++) {
-            tickets[i] = JsonService.stringifyTicket(ticketsList.get(i));
-        }
-        return tickets;
+    public Ticket[] getAllFree() {
+        List<Ticket> ticketList = bookingService.getAllFree();
+        return ticketList.toArray(new Ticket[ticketList.size()]);
     }
 
     @Override
-    public String[] getAllInSystem() {
+    public Ticket[] getAllInSystem() {
         List<Ticket> ticketList = bookingService.getAllInSystem();
-        String[] tickets = new String[ticketList.size()];
-
-        for (int i = 0; i < ticketList.size(); i++) {
-            tickets[i] = JsonService.stringifyTicket(ticketList.get(i));
-        }
-        return tickets;
-    }
-
-    @Override
-    public String getTicketByNumber(int numberTicket) {
-        return JsonService.stringifyTicket(bookingService.getByNumber(numberTicket));
+        return ticketList.toArray(new Ticket[ticketList.size()]);
     }
 }

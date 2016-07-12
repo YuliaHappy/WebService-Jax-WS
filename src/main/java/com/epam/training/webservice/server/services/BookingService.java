@@ -3,7 +3,9 @@ package com.epam.training.webservice.server.services;
 import com.epam.training.webservice.common.domains.StateTicket;
 import com.epam.training.webservice.common.domains.Person;
 import com.epam.training.webservice.common.domains.Ticket;
+import com.epam.training.webservice.common.exceptions.BookingException;
 
+import javax.xml.bind.annotation.XmlList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,33 +20,35 @@ public class BookingService {
     }
 
 
-    public int bookedTicket(Ticket ticket, Person person) {
-        int numberBook = ticketService.saveToSystem(ticket, person);
-        processedTickets.put(numberBook, ticket);
-        return numberBook;
+    public int bookTicket(int idTicket, Person person) {
+        Ticket ticket = ticketService.saveToSystem(idTicket, person);
+        processedTickets.put(ticket.getNumberBook(), ticket);
+        return ticket.getNumberBook();
     }
 
     public Ticket getByNumber(int numberTicket) {
         return processedTickets.get(numberTicket);
     }
 
-    public boolean buyTicket(Ticket ticket) {
-        Ticket ticketInSystem = processedTickets.get(ticket.getNumberBook());
-        if (ticketInSystem != null && ticketInSystem.getState() == StateTicket.BOOKED) {
-            ticketInSystem.setState(StateTicket.PAID);
-            return true;
+    public void buyTicket(int numberTicket) throws BookingException {
+        Ticket ticketInSystem = processedTickets.get(numberTicket);
+        if (ticketInSystem != null) {
+            if (ticketInSystem.getState() == StateTicket.BOOKED) {
+                ticketInSystem.setState(StateTicket.PAID);
+                return;
+            }
+            throw new BookingException("State ticket " + ticketInSystem.getState() + " incorret!");
         }
-        return false;
+        throw new BookingException("Number ticket " + numberTicket + " incorret!");
     }
 
-    public boolean returnTicket(Ticket ticket) {
-        if (processedTickets.containsKey(ticket.getNumberBook())) {
-            ticketService.addTicket(processedTickets.remove(ticket.getNumberBook()));
-            return true;
+    public void returnTicket(int numberTicket) throws BookingException {
+        if (processedTickets.containsKey(numberTicket)) {
+            ticketService.addTicket(processedTickets.remove(numberTicket));
+            return;
         }
-        return false;
+        throw new BookingException("Number ticket " + numberTicket + " incorret!");
     }
-
     public List<Ticket> getAllFree() {
         return ticketService.getAll();
     }

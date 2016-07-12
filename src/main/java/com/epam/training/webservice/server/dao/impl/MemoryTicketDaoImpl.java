@@ -36,12 +36,12 @@ public class MemoryTicketDaoImpl implements TicketDao {
 
 
     @Override
-    public int saveToSystem(Ticket ticket, Person person) {
-        tickets.remove(ticket.getId());
+    public Ticket saveToSystem(int idTicket, Person person) {
+        Ticket ticket = tickets.remove(idTicket);
         ticket.setNumberBook();
         ticket.setState(StateTicket.BOOKED);
         ticket.setPerson(person);
-        return ticket.getNumberBook();
+        return ticket;
     }
 
     @Override
