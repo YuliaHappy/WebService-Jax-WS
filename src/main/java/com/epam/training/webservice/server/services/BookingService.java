@@ -5,7 +5,6 @@ import com.epam.training.webservice.common.domains.Person;
 import com.epam.training.webservice.common.domains.Ticket;
 import com.epam.training.webservice.common.exceptions.BookingException;
 
-import javax.xml.bind.annotation.XmlList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

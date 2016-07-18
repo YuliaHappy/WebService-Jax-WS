@@ -2,8 +2,6 @@ package com.epam.training.webservice.client.reporter;
 
 import com.epam.training.webservice.common.domains.Ticket;
 
-import java.util.List;
-
 public final class Reporter {
     public static String getAllTicket(Ticket[] tickets, String nameGroup) {
         StringBuilder reporter = new StringBuilder();

@@ -9,7 +9,6 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
 public class BookingService {
     private BookingWebService bookingWebService;
