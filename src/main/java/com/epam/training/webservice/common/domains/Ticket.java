@@ -1,8 +1,12 @@
 package com.epam.training.webservice.common.domains;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Calendar;
 import java.util.Random;
 
+@XmlRootElement(name = "ticket")
 public class Ticket {
     private int id;
     private int numberBook;
@@ -28,6 +32,7 @@ public class Ticket {
         this.state = StateTicket.FREE;
     }
 
+    @XmlElement
     public int getNumberBook() {
         return numberBook;
     }
@@ -36,6 +41,7 @@ public class Ticket {
         this.numberBook = new Random().nextInt();
     }
 
+    @XmlElement
     public String getDepartureCity() {
         return departureCity;
     }
@@ -44,6 +50,7 @@ public class Ticket {
         this.departureCity = departureCity;
     }
 
+    @XmlElement
     public String getArrivalTown() {
         return arrivalTown;
     }
@@ -52,6 +59,7 @@ public class Ticket {
         this.arrivalTown = arrivalTown;
     }
 
+    @XmlElement
     public Calendar getDepartureDate() {
         return departureDate;
     }
@@ -60,6 +68,7 @@ public class Ticket {
         this.departureDate = departureDate;
     }
 
+    @XmlElement
     public Calendar getArrivalDate() {
         return arrivalDate;
     }
@@ -68,6 +77,7 @@ public class Ticket {
         this.arrivalDate = arrivalDate;
     }
 
+    @XmlElement
     public int getPrice() {
         return price;
     }
@@ -76,6 +86,7 @@ public class Ticket {
         this.price = price;
     }
 
+    @XmlElement
     public StateTicket getState() {
         return state;
     }
@@ -84,6 +95,7 @@ public class Ticket {
         this.state = state;
     }
 
+    @XmlElement
     public Person getPerson() {
         return person;
     }
@@ -92,8 +104,17 @@ public class Ticket {
         this.person = person;
     }
 
+    @XmlAttribute
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNumberBook(int numberBook) {
+        this.numberBook = numberBook;
     }
 
     @Override

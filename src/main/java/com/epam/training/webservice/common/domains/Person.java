@@ -1,7 +1,10 @@
 package com.epam.training.webservice.common.domains;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
+@XmlRootElement(name = "person")
 public class Person {
     private String surname;
     private String name;
@@ -18,6 +21,7 @@ public class Person {
         this.birthday = birthday;
     }
 
+    @XmlElement
     public String getSurname() {
         return surname;
     }
@@ -26,6 +30,7 @@ public class Person {
         this.surname = surname;
     }
 
+    @XmlElement
     public String getName() {
         return name;
     }
@@ -34,6 +39,7 @@ public class Person {
         this.name = name;
     }
 
+    @XmlElement
     public String getPatronymic() {
         return patronymic;
     }
@@ -42,6 +48,7 @@ public class Person {
         this.patronymic = patronymic;
     }
 
+    @XmlElement
     public Date getBirthday() {
         return birthday;
     }

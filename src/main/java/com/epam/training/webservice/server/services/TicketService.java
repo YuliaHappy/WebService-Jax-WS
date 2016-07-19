@@ -13,8 +13,8 @@ public class TicketService {
         this.ticketDao = ticketDao;
     }
 
-    public int saveToSystem(Ticket ticket, Person person) {
-        return ticketDao.saveToSystem(ticket, person);
+    public Ticket saveToSystem(int idTicket, Person person) {
+        return ticketDao.saveToSystem(idTicket, person);
     }
 
     public void addTicket(Ticket ticket) {
